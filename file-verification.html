@@ -11,25 +11,7 @@
   <!-- For Google Drive API -->
   <script src="https://apis.google.com/js/api.js"></script>
   <script src="https://accounts.google.com/gsi/client"></script>
-  <script
-  type="module"
-  src="https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js"
-></script>
-<link
-  href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css"
-  rel="stylesheet"
-/>
-<style>
-    .background{
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-transform: scale(1.2);
-z-index:0 ;
-}
-</style>
+  
   <style>
     .uploadingdocs * {
       margin: 0;
@@ -38,147 +20,92 @@ z-index:0 ;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    body, html {
-      height: 100%;
-      width: 100%;
-      margin: 0;
-      padding: 0;
-    }
     .uploadingdocs-body {
-      min-height: 100vh;
-      min-width: 100vw;
+      background-color: #f5f7fa;
       display: flex;
-      align-items: center;
       justify-content: center;
-      padding: 32px 8px;
-      background: none;
-      position: relative;
-      z-index: 1;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
     }
 
     .uploadingdocs-container {
       width: 100%;
-      max-width: 380px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.78) 65%, rgba(245,245,245,0.85) 100%);
-      border-radius: 18px;
-      box-shadow: 0 4px 16px 0 rgba(60, 60, 60, 0.14), 0 1px 4px 0 rgba(255,255,255,0.12);
-      backdrop-filter: blur(13px) saturate(110%);
-      -webkit-backdrop-filter: blur(13px) saturate(110%);
-      border: 1.2px solid rgba(220, 220, 220, 0.22);
+      max-width: 500px;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
       overflow: hidden;
-      margin: 0 auto;
-      position: relative;
-    }
-    .uploadingdocs-container::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      opacity: 0.22;
-      background: url('data:image/svg+xml;utf8,<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2"/></filter><rect width="400" height="400" filter="url(%23noise)"/></svg>');
     }
 
     .uploadingdocs-header {
-      padding: 18px 12px 12px 12px;
-      background: linear-gradient(90deg, rgba(183,246,236,0.22) 0%, rgba(255,255,255,0.94) 100%);
-      color: #232323;
+      padding: 24px;
+      background-color: #4b50e6;
+      color: white;
       text-align: center;
-      border-bottom: 1px solid rgba(225,225,225,0.33);
-      border-radius: 18px 18px 0 0;
-      font-weight: 600;
-      letter-spacing: 0.01em;
-      box-shadow: 0 1px 4px rgba(240,240,240,0.07);
-      position: relative;
     }
 
     .uploadingdocs-h1 {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: #11998e;
-      margin-bottom: 2px;
-      letter-spacing: 0.01em;
-      text-shadow: 0 1px 2px rgba(255,255,255,0.13);
-      background: linear-gradient(90deg,#11998e,#38ef7d);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      font-size: 24px;
+      font-weight: 600;
     }
 
     .uploadingdocs-upload-container {
-      padding: 14px 10px 12px 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+      padding: 30px;
     }
 
     .uploadingdocs-drop-area {
-      border: 1.5px dashed #7de2d1;
-      border-radius: 10px;
-      padding: 18px 8px;
+      border: 2px dashed #d1d5db;
+      border-radius: 8px;
+      padding: 40px 20px;
       text-align: center;
       cursor: pointer;
-      transition: all 0.3s cubic-bezier(.4,0,.2,1);
-      background: linear-gradient(135deg, rgba(183,246,236,0.13) 0%, rgba(255,255,255,0.45) 100%);
-      backdrop-filter: blur(2.5px);
-      margin-bottom: 0;
-      box-shadow: 0 1px 4px rgba(120,120,120,0.03);
-      color: #11998e;
-      font-size: 0.98rem;
-      position: relative;
-      overflow: hidden;
+      transition: all 0.3s ease;
+      background-color: #f9fafb;
+      margin-bottom: 20px;
     }
 
     .uploadingdocs-drop-area.active {
-      border-color: #11998e;
-      background: linear-gradient(135deg, rgba(183,246,236,0.23) 0%, rgba(255,255,255,0.65) 100%);
+      border-color: #4b50e6;
+      background-color: rgba(75, 80, 230, 0.05);
     }
 
     .uploadingdocs-upload-icon {
-      width: 32px;
-      height: 32px;
-      margin: 0 auto 6px;
-      background: linear-gradient(135deg, #b7f6ec 0%, #fff 100%);
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 16px;
+      background-color: rgba(75, 80, 230, 0.1);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 1px 2px rgba(160,160,160,0.06);
-      border: 1.5px solid #7de2d1;
     }
 
     .uploadingdocs-upload-icon svg {
-      width: 18px;
-      height: 18px;
-      fill: #11998e;
-      opacity: 0.92;
+      width: 30px;
+      height: 30px;
+      fill: #4b50e6;
     }
 
     .uploadingdocs-drop-message {
-      font-size: 1rem;
-      color: #11998e;
-      margin-bottom: 6px;
-      font-weight: 600;
-      letter-spacing: 0.01em;
-      text-shadow: 0 1px 2px rgba(255,255,255,0.11);
+      font-size: 16px;
+      color: #6b7280;
+      margin-bottom: 8px;
     }
 
     .uploadingdocs-file-info {
-      font-size: 0.88rem;
-      color: #11998e;
-      margin-top: 2px;
-      font-weight: 500;
+      font-size: 14px;
+      color: #9ca3af;
     }
 
     .uploadingdocs-file-selected {
-      background: linear-gradient(90deg, #e0fffa 0%, #fff 100%);
-      border: 1.2px solid #b7f6ec;
+      background-color: #f0f9ff;
+      border: 1px solid #bae6fd;
       border-radius: 8px;
-      padding: 8px 6px;
-      margin-top: 10px;
+      padding: 12px;
+      margin-top: 16px;
       display: flex;
       align-items: center;
-      box-shadow: 0 1px 2px rgba(120,120,120,0.03);
       display: none;
     }
 
@@ -400,13 +327,6 @@ z-index:0 ;
   </style>
 </head>
 <body>
-  <a href="index1.html" id="home-btn" style="position:fixed;top:18px;right:30px;z-index:1100;background:#23272f;color:#fff;padding:10px 22px;border-radius:8px;font-weight:600;font-size:1.05em;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,0.13);transition:background 0.2s;letter-spacing:0.5px;">
-    <i class="fas fa-home" style="margin-right:8px;"></i>Home
-  </a>
-
-  <div >
-    <spline-viewer class="background" url="https://prod.spline.design/puFUIzxwjfXJWBnn/scene.splinecode"></spline-viewer>
-  </div>
   <div class="uploadingdocs">
     <div class="uploadingdocs-container">
       <div class="uploadingdocs-header">
@@ -483,7 +403,7 @@ z-index:0 ;
       // Solana configuration
       const solanaConfig = {
         programId: 'ABN4fC5tfSBRVyGkew5WkUS8nUtdKctsd1S9vjrH7KCi',
-        network: 'devnet',
+        network: 'mainnet-beta',
         keypair: null 
       };
       
@@ -521,9 +441,10 @@ z-index:0 ;
       // Initialize Solana connection
       function initSolanaConnection() {
         try {
-          // Create connection to Solana network
+          // Create connection to Solana network with additional options
           return new solanaWeb3.Connection(
-            solanaWeb3.clusterApiUrl(solanaConfig.network)
+            solanaWeb3.clusterApiUrl(solanaConfig.network),
+            'confirmed' // Add commitment level
           );
         } catch (error) {
           console.error("Failed to initialize Solana connection:", error);
@@ -545,9 +466,20 @@ z-index:0 ;
           }
           
           try {
+            // Make sure we're always getting a fresh connection
+            if (window.solana.isConnected) {
+              await window.solana.disconnect();
+            }
+            
             const resp = await window.solana.connect();
+            
+            // Save the wallet properly
+            solanaWallet = window.solana;
+            
             walletStatus.textContent = `Connected: ${resp.publicKey.toString().substring(0, 8)}...`;
-            return resp;
+            verifyBtn.disabled = !selectedFile; // Enable verify button if file is selected
+            
+            return window.solana;
           } catch (err) {
             walletStatus.textContent = `Error connecting: ${err.message}`;
             return null;
@@ -653,11 +585,16 @@ z-index:0 ;
           );
 
           // Sign and send the transaction
-          const signature = await solanaWeb3.sendAndConfirmTransaction(
-            solanaConnection,
-            transaction,
-            [solanaWallet]
-          );
+          const { blockhash } = await solanaConnection.getLatestBlockhash();
+          transaction.recentBlockhash = blockhash;
+          transaction.feePayer = solanaWallet.publicKey;
+          
+          // Request wallet signature
+          const signed = await solanaWallet.signTransaction(transaction);
+          const signature = await solanaConnection.sendRawTransaction(signed.serialize());
+          
+          // Wait for confirmation
+          await solanaConnection.confirmTransaction(signature);
           
           return signature;
         } catch (error) {
